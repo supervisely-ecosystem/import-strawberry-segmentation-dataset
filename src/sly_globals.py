@@ -19,7 +19,7 @@ logger = sly.logger
 
 project_name = 'Strawberry'
 dataset_name = 'ds'
-work_dir = 'strawberry_data'
+work_dir = 'strawberry'
 strawberry_url = 'https://storage.googleapis.com/kaggle-data-sets/1743316/2848076/bundle/archive.zip?X-Goog-Algorithm=' \
                  'GOOG4-RSA-SHA256&X-Goog-Credential=gcp-kaggle-com%40kaggle-161607.iam.gserviceaccount.com%2F20220310%2' \
                  'Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20220310T132800Z&X-Goog-Expires=259199&X-Goog-SignedHeaders' \
