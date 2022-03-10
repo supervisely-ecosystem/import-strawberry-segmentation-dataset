@@ -37,8 +37,9 @@ def import_strawberry(api: sly.Api, task_id, context, state, app_logger):
     gdown.download(g.strawberry_url, g.archive_path, quiet=False)
     extract_zip()
 
-    items_names = os.listdir(os.path.join(g.work_dir_path, g.work_dir))
-    g.logger.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1', items_names[0])
+    items_path = os.path.join(g.work_dir_path, g.work_dir)
+    items_names = os.listdir(items_path)
+    
     new_project = api.project.create(g.WORKSPACE_ID, g.project_name, change_name_if_conflict=True)
     api.project.update_meta(new_project.id, g.meta.to_json())
 
@@ -47,13 +48,11 @@ def import_strawberry(api: sly.Api, task_id, context, state, app_logger):
     progress = sly.Progress('Upload items', len(items_names), app_logger)
 
     for curr_item_names in sly.batched(items_names, batch_size=g.batch_size):
-        g.logger.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1', curr_item_names[0])
-        img_folders = [os.path.join(g.work_dir_path, g.work_dir, curr_item_name, g.images_folder) for curr_item_name in curr_item_names]
-        g.logger.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1', img_folders[0])
+        img_folders = [os.path.join(items_path, curr_item_name, g.images_folder) for curr_item_name in curr_item_names]
         img_pathes = [os.path.join(img_folder, os.listdir(img_folder)[0]) for img_folder in img_folders]
         img_names = [sly.io.fs.get_file_name_with_ext(img_path) for img_path in img_pathes]
 
-        masks_folders = [os.path.join(g.work_dir_path, curr_item_name, g.anns_folder) for curr_item_name in curr_item_names]
+        masks_folders = [os.path.join(items_path, curr_item_name, g.anns_folder) for curr_item_name in curr_item_names]
         annotations = [create_ann(masks_folder) for masks_folder in masks_folders]
         progress.iters_done_report(len(curr_item_names))
 
