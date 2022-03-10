@@ -12,6 +12,8 @@ def create_ann(masks_folder):
 
     for mask in mask_pathes:
         ann_np = sly.imaging.image.read(mask)[:, :, 0]
+        if not ann_np.any():
+            continue
         ann_bool = ann_np == 255
 
         bitmap = sly.Bitmap(ann_bool)
@@ -39,7 +41,7 @@ def import_strawberry(api: sly.Api, task_id, context, state, app_logger):
 
     items_path = os.path.join(g.work_dir_path, g.work_dir)
     items_names = os.listdir(items_path)
-    
+
     new_project = api.project.create(g.WORKSPACE_ID, g.project_name, change_name_if_conflict=True)
     api.project.update_meta(new_project.id, g.meta.to_json())
 
