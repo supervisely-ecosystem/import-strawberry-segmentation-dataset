@@ -35,9 +35,12 @@ def extract_zip():
 def import_strawberry(api: sly.Api, task_id, context, state, app_logger):
 
     gdown.download(g.strawberry_url, g.archive_path, quiet=False)
+    g.logger.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1', os.listdir(g.work_dir_path))
     extract_zip()
+    g.logger.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1', os.listdir(g.work_dir_path))
 
     items_names = os.listdir(g.work_dir_path)
+    g.logger.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1', items_names[0])
     new_project = api.project.create(g.WORKSPACE_ID, g.project_name, change_name_if_conflict=True)
     api.project.update_meta(new_project.id, g.meta.to_json())
 
