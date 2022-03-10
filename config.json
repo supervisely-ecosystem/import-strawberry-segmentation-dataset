@@ -1,0 +1,15 @@
+{
+  "name": "Import strawberry segmentation dataset",
+  "type": "app",
+  "categories": [
+    "Images"
+  ],
+  "description": "Import strawberry segmentation dataset",
+  "docker_image": "supervisely/base-py-sdk:6",
+  "main_script": "src/main.py",
+  "task_location": "workspace_tasks",
+  "isolate": true,
+  "headless": true,
+  "icon": "https://i.imgur.com/WtIXCkB.png",
+  "icon_background": "#FFFFFF"
+}
