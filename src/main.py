@@ -3,7 +3,7 @@ import zipfile, os
 import supervisely as sly
 import sly_globals as g
 from supervisely.io.fs import get_file_name
-import gdown
+import gdown, glob
 
 
 def create_ann(masks_folder):
@@ -50,11 +50,15 @@ def import_strawberry(api: sly.Api, task_id, context, state, app_logger):
     progress = sly.Progress('Upload items', len(items_names), app_logger)
 
     for curr_item_names in sly.batched(items_names, batch_size=g.batch_size):
-        img_folders = [os.path.join(items_path, curr_item_name, g.images_folder) for curr_item_name in curr_item_names]
-        img_pathes = [os.path.join(img_folder, os.listdir(img_folder)[0]) for img_folder in img_folders]
+        search_fine = os.path.join(items_path, "*", g.images_folder, "*")
+        img_pathes = glob.glob(search_fine)
+        img_pathes.sort()
         img_names = [sly.io.fs.get_file_name_with_ext(img_path) for img_path in img_pathes]
 
-        masks_folders = [os.path.join(items_path, curr_item_name, g.anns_folder) for curr_item_name in curr_item_names]
+        masks_fine = os.path.join(items_path, "*", g.anns_folder, "*")
+        masks_folders = glob.glob(masks_fine)
+        masks_folders.sort()
+
         annotations = [create_ann(masks_folder) for masks_folder in masks_folders]
         progress.iters_done_report(len(curr_item_names))
 
