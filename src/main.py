@@ -9,6 +9,7 @@ import gdown, glob
 def create_ann(masks_folder):
     labels = []
     mask_pathes = [os.path.join(masks_folder, curr_mask) for curr_mask in os.listdir(masks_folder)]
+    g.logger.warn('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', mask_pathes)
 
     for mask in mask_pathes:
         ann_np = sly.imaging.image.read(mask)[:, :, 0]
