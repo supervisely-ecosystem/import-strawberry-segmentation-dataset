@@ -55,7 +55,7 @@ def import_strawberry(api: sly.Api, task_id, context, state, app_logger):
         img_pathes.sort()
         img_names = [sly.io.fs.get_file_name_with_ext(img_path) for img_path in img_pathes]
 
-        masks_fine = os.path.join(items_path, "*", g.anns_folder, "*")
+        masks_fine = os.path.join(items_path, "*", g.anns_folder)
         masks_folders = glob.glob(masks_fine)
         masks_folders.sort()
 
