@@ -5,7 +5,7 @@
     "Images"
   ],
   "description": "Import strawberry segmentation dataset",
-  "docker_image": "supervisely/base-py-sdk:6",
+  "docker_image": "supervisely/base-py-sdk:6.35.0",
   "main_script": "src/main.py",
   "task_location": "workspace_tasks",
   "isolate": true,
